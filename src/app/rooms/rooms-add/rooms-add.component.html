@@ -1,0 +1,53 @@
+<div *ngIf="successMessage !== ''" class="alert alert-success">
+    {{successMessage}}
+</div>
+
+<form #roomsForm="ngForm" (ngSubmit)="addRoom(roomsForm)">
+  <div class="form-group">
+        <input class="form-control" type="text" [(ngModel)]="room.roomType" name="roomType" placeholder="Room Type" [ngModelOptions]="{updateOn : 'blur'}" required>
+  </div>
+  <div class="form-group">
+        <input class="form-control" #roomamenities="ngModel"  minlength="5" maxlength="20" type="text" [(ngModel)]="room.amenities" name="amenities" placeholder="Amenities" required>
+        <div class="alert alert-danger" *ngIf="roomamenities.errors?.['minlength']">
+            <!-- {{roomamenities.errors | json}} -->
+           Amenities Should be min 5 characters
+        </div>
+
+        <div class="alert alert-danger" *ngIf="roomamenities.errors?.['required']">
+            Please Provide Ammenities
+        </div>
+    </div>
+  <div class="form-group">
+        <input class="form-control" type="number" [(ngModel)]="room.price" name="price" placeholder="Room Price per night" required>
+  </div>
+  <div class="form-group">
+         <input class="form-control" type="text" [(ngModel)]="room.photos" name="photos" placeholder="photos (provide Links)" required>
+  </div>
+  <div class="form-group">
+         <input class="form-control" type="datetime" [(ngModel)]="room.checkinTime" name="checkinTime" placeholder="checkin time" required>
+  </div>
+  <div class="form-group">
+         <input class="form-control" type="datetime" [(ngModel)]="room.checkoutTime" name="checkoutTime" placeholder="checkout time" required>
+  </div>
+  <div class="form-group">
+    <input class="form-control" #formRating="ngModel" type="number" min="1" max="5" [(ngModel)]="room.rating" name="rating" placeholder="Rating" required>
+    <div class="alert alert-danger" *ngIf="formRating.errors?.['max']">
+        Kuch To Gadbad Hai
+    </div>
+</div>
+  <div>
+    <button [disabled]="roomsForm.invalid" type="submit" class="btn btn-primary">Submit</button>
+  </div>
+</form>
+
+<!-- Prestine : {{roomsForm.pristine | json}} <br><br>
+
+Dirty : {{roomsForm.dirty | json}} <br><br>
+
+Valid : {{roomsForm.valid | json}} <br><br>
+
+InValid : {{roomsForm.invalid | json}} <br><br>
+
+Value : {{roomsForm.value | json}} -->
+
+
